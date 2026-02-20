@@ -89,6 +89,7 @@ const ObstacleCourse = () => {
               id={topping.toLocaleLowerCase()}
               name="toppings"
               value={topping}
+              checked={toppings[topping as Topping]}
               onChange={(e) => {
                 if (!isTopping(e.target.value)) return;
                 dispatch({
@@ -96,7 +97,7 @@ const ObstacleCourse = () => {
                   checked: e.target.checked,
                 });
               }}
-              data-testid="checkbox-{topping.toLocaleLowerCase()}"
+              data-testid={`checkbox-${topping.toLocaleLowerCase()}`}
             />
             <label className="list" htmlFor={topping.toLocaleLowerCase()}>
               {topping}
@@ -106,7 +107,9 @@ const ObstacleCourse = () => {
       </div>
       <div className="flex items-center justify-around border-2 border-purple-300 p-2">
         <p data-testid="checkbox-result">
-          {Object.keys(toppings).join(', ') || '(None)'}
+          {Object.keys(toppings)
+            .filter((topping) => toppings[topping as Topping])
+            .join(', ') || '(None)'}
         </p>
       </div>
       <div className="border-2 border-purple-300 p-2">
@@ -119,7 +122,7 @@ const ObstacleCourse = () => {
               id={beatle.toLowerCase()}
               value={beatle}
               onChange={(e) => setFavoriteBeatle(e.target.value)}
-              data-testid="radio-{beatle.toLowerCase()}"
+              data-testid={`radio-${beatle.toLowerCase()}`}
             />
             <label className="list" htmlFor={beatle.toLowerCase()}>
               {beatle}
